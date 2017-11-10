@@ -11,5 +11,5 @@ setx GPU_SINGLE_ALLOC_PERCENT 100
 :LOOP
 del "Stats\*_Profit.txt"
 
-powershell -version 5.0 -noexit -executionpolicy bypass -command "&.\core.ps1 -MiningMode Automatic
+powershell -version 5.0 -noexit -executionpolicy bypass -command "&.\core.ps1 -MiningMode Automatic -PoolsName @('Hash_Refinery','Mining_Pool_Hub','NiceHash','WHATTOMINE_VIRTUAL','YIMP','ZPool')
 GOTO LOOP
