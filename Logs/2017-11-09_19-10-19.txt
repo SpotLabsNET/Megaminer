@@ -1,0 +1,79 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20171109191019
+Username: AzureAD\PaulMurphy
+RunAs User: AzureAD\PaulMurphy
+Configuration Name: 
+Machine: WORKVM (Microsoft Windows NT 10.0.17025.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command Set-Location -literalPath 'F:\Storage\OneDrive\Projects\hub\tutulino\Megaminer\Patterns'
+Process ID: 5428
+PSVersion: 5.1.17025.1000
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.17025.1000
+BuildVersion: 10.0.17025.1000
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is .\Logs\2017-11-09_19-10-19.txt
+Parameter MiningMode not valid, valid options: Manual, Automatic, Automatic24h
+ [
+master
+ ≡
+ +2
+ ~1
+ -1
+ !
+]
+>
+F:\Storage\OneDrive\Projects\hub\tutulino\Megaminer.\Megaminer.ps1 -MiningMode Automatic24h
+..............................................................................................
+...................SELECT MODE TO MINE.....................................................
+..............................................................................................
+
+Option Mode         Explanation
+------ ----         -----------
+     0 AUTOMATIC    Not necesary choose coin to mine, program choose more profitable coin based on poolÂ´s current statistics
+     1 AUTOMATIC24h Same as Automatic mode but based on pools/WTM reported last 24h profit
+     2 MANUAL       You select coin to mine
+
+
+SELECTED BY PARAMETER OPTION::Automatic24h
+..............................................................................................
+...................SELECT POOL/S TO MINE.....................................................
+..............................................................................................
+
+Option Name               Disclaimer
+------ ----               ----------
+     0 Hash_Refinery      Autoexchange to config.txt wallet, no registration required
+     1 WHATTOMINE_VIRTUAL Based on Whattomine statistics, you must have acount on Suprnova a wallets for each coin on config.txt
+     2 Zpool              Autoexchange to config.txt wallet, no registration required
+    99 ALL POOLS
+
+
+SELECTED OPTION:: Hash_Refinery,WHATTOMINE_VIRTUAL,Zpool
+Transcript started, output file is .\Logs\2017-11-09_19-10-52.txt
+Downloading....http://ccminer.org/preview/ccminer-2.2-skunk.7z
+Downloading....https://github.com/nemosminer/ccminer-Alexis78/releases/download/ccminer-alexis78/ccminer-alexis78-ms2013-cuda7.5.7z
+Downloading....https://github.com/nicehash/ccminer-x11gost/releases/download/ccminer-x11gost_windows/ccminer_x11gost.7z
+Downloading....https://github.com/KlausT/ccminer/releases/download/8.13/ccminer-813-x64.zip
+Downloading....http://ccminer.org/preview/ccminer-skunk-krnlx-80.7z
+Downloading....https://github.com/sp-hash/ccminer/releases/download/1.5.81/release81.7z
+Downloading....https://github.com/tpruvot/ccminer/releases/download/2.2.1-tpruvot/ccminer-x86-2.2.1-cuda9rc.7z
+F:\Storage\OneDrive\Projects\hub\tutulino\MegaminerTerminatingError(Invoke-WebRequest): "The request was aborted: The connection was closed unexpectedly."
+>> TerminatingError(Invoke-WebRequest): "The request was aborted: The connection was closed unexpectedly."
+Cannot download .\Bin\NVIDIA-TPruvot\ccminer.exe distributed at https://github.com/tpruvot/ccminer/releases/download/2.2.1-tpruvot/ccminer-x86-2.2.1-cuda9rc.7z.
+Cannot find .\Bin\NVIDIA-TPruvot\ccminer.exe distributed at https://github.com/tpruvot/ccminer/releases/download/2.2.1-tpruvot/ccminer-x86-2.2.1-cuda9rc.7z.
+Downloading....https://github.com/tutulino/Claymore-Dual/releases/download/10.0/Claymore-Dual10.zip
+Downloading....https://github.com/nemosminer/EWBF-Zec-Miner/releases/download/0.3.4b/0.3.4b.7z
+NO MINERS!
+ [
+master
+ ≡
+ +3
+ ~1
+ -1
+ !
+]
+>

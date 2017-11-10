@@ -1,6 +1,6 @@
 --ID for each rig you have
 
-@@WORKERNAME=HAB
+@@WORKERNAME=HASCISM
 
 --Prefered Currency you will be pay, only for anonymous pools with autoexchange (Zpool, HR...), must set wallet for this currency on "Wallets Section"
 
@@ -8,7 +8,7 @@
 
 --Pool username for not anonymous pools like SprNova, BlocksFactory or MiningPoolHub
 
-@@USERNAME=tutulino
+@@USERNAME=pauldmurphy
 
 -- Time in seconds each restarting of algo, Benchmarks run at 200 seconds on automatic way, not need to change
 
@@ -43,27 +43,27 @@
 
 -- WALLETS, for autoexchange pools you only need set a wallet for prefered currency (@@currency), other pools without autoexchange like Yiimp need as login a wallet of same coin you are mining, you can add wallets while pattern @@WALLET_XXX (XXX=currency symbol)
 
-@@WALLET_BTC=1AVMHnFgc6SW33cwqrDyy2Fug9CsS8u6TM
-@@WALLET_BTX=1EqS1VZ1A5qZF6x72DRgLs4oULLsMcVDJd
-@@WALLET_DCR=DshK6VgbzwJjaAXmvrmMEYq3bqZJLrQbwzS
-@@WALLET_DNR=DMBdpDVrtj6DBEcE6t9wRbujw7NM7ziLYp
-@@WALLET_EXP=0x678167c192c6b40d913a2ffcc92887575db56d56
-@@WALLET_FTC=6oVvPeadc99vchwaL9jThPyvDCQointDdQ
-@@WALLET_GRS=FmjEgiAziz5L5a3674cWQRwj2eSCbSrMYn
-@@WALLET_ORB=oewLAyLNSQR6uRu5WjY1cHSWnQ1oPLXsCs
-@@WALLET_SIB=SgxUftvp7zm66yCoHiKzJCzvopzn7cUmhw
-@@WALLET_SIGT=BJupFgEmjzE3U6VvH3vmNSBL6AkdxQjoAn
-@@WALLET_VTC=VrBVPv2PKLv6RrgKnoh71SzdFjmX5Ly8Dq
-@@WALLET_XLR=sc51ZBVNJoaZ3gWNbN62QdYgmcFTVRVg4W
-@@WALLET_XVG=DMpSQmLpitKrdnaHomJSnMP3Q77ZJ9f2aF
-@@WALLET_ZEC=t1RbZBWXx6K9cbFogePSJPNg6Bjfryrdzpx
-@@WALLET_UBQ=0xcd11aa1fec676c0d17ce5d88d13fec2dcf0f0cfd
+@@WALLET_BTC=1P2aMoZ7bU72GBHwucJnqKpiGn5GUBXeZL
+@@WALLET_BTX=
+@@WALLET_DCR=DsXKqKuByEoQivbJqRGTKdpgy7FmsLwAZP9
+@@WALLET_DNR=
+@@WALLET_EXP=0x7a1aa955ed9039d7408063d829af988f04b98f9f
+@@WALLET_FTC=
+@@WALLET_GRS=
+@@WALLET_ORB=
+@@WALLET_SIB=
+@@WALLET_SIGT=
+@@WALLET_VTC=Vy3y5yoidwiH5H2bRdpYegZUPHruMEzKmB
+@@WALLET_XLR=
+@@WALLET_XVG=
+@@WALLET_ZEC=t1VQSq3VtLZ6hozgYGSkkMjAthXo8ZuysZe
+@@WALLET_UBQ=
 
 
 -- API Keys, Non Anonymous pools (Suprnova, MPH) requires api key to get wallets info (format @@APIKEY_NAMEOFPOOL=XXXXXXXXXX)
 
-@@APIKEY_MINING_POOL_HUB=a04e6330b38f7387833434ae40775f70eff6582e8ec37600216757554887ccbd36b4510b4
-@@APIKEY_SUPRNOVA=cd03834069c3314bb6d88d333408bc4342a51ec1d45f90577742e4e5275744a402e4afed
+@@APIKEY_MINING_POOL_HUB=4JUdGzvrMFDWrUUwY3toJATSeNwjn54LkCnKBPRzDuhzi5vSepHfUckJNxRL2gjkNrSqtCoRUrEDAgRwsQvVCjZbRzMHRfUJzRRGSrLVzq
+@@APIKEY_SUPRNOVA=cfdb508cf2739fb4cccd85c0f6ba0914cc157f9a620a7843ce3781bfce5fd6e6
 
 
 -- Number of minutes each day (NOT PERCENT) of donation
