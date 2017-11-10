@@ -351,7 +351,7 @@ function Get-Pools {
                                 
          
 
-            $AllPools = $ChildItems | ForEach-Object {if ($_.content -ne $null) {$_.Content | Add-Member @{Name = $_.Name} -PassThru}}
+            $AllPools = $ChildItems | ForEach-Object {if ($_.content -ne $null) {$_.Content | Add-Member @{Name = $_.Name} -PassThru -Force}}
                
 
             $AllPools | Add-Member LocationPriority 9999
