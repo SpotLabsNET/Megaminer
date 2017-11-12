@@ -1,6 +1,6 @@
 --ID for each rig you have
 
-@@WORKERNAME=HASCISM
+@@WORKERNAME=hashr
 
 --Prefered Currency you will be pay, only for anonymous pools with autoexchange (Zpool, HR...), must set wallet for this currency on "Wallets Section"
 
@@ -12,7 +12,7 @@
 
 -- Time in seconds each restarting of algo, Benchmarks run at 200 seconds on automatic way, not need to change
 
-@@INTERVAL=600
+@@INTERVAL=150
 
 -- Only NVIDIA tested, AMD must work, but not tested (for mixed rig set AMD,NVIDIA)
 
@@ -20,7 +20,7 @@
 
 -- Location of your rig: EUROPE/US/ASIA/GB  (some pool may have no desired location, US will be selected then)
 
-@@LOCATION=EUROPE
+@@LOCATION=US
 
 -- Enabled or disabled call to apis (pools and traders) to help on manual coin selection, some pools has slow response and must delay show prompt to user
 
