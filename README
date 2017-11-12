@@ -86,10 +86,6 @@ In this software you can get same features than Nemosminer (Zpool) and Multipool
 
 -Option for asociate command to launch before run to each miner (nvidia inspector for example to set overclock)
 
-
-
-
-
 ---- INSTRUCTIONS ----------------------------------------------
 
 0. Download latest Release from github
