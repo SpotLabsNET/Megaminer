@@ -1,3 +1,7 @@
+
+function Invoke-Hashpower
+{  
+
 param(
     [Parameter(Mandatory = $false)]
     [Array]$Algorithm = $null,
@@ -966,3 +970,4 @@ while ($true) {
 
 #Stop the log
 Stop-Transcript
+}

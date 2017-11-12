@@ -11,8 +11,5 @@
     "Algorithms": [
                     {"blakecoin":"-a blakecoin"},
                     {"lyra2v2":"-a lyra2v2"}
-                  ]
-    
-    
-    }
-    
+    ]    
+                }
