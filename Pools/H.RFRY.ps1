@@ -108,10 +108,11 @@ if (($Querymode -eq "core" ) -or ($Querymode -eq "Menu")){
                                 PoolWorkers = $HR_Request.$_.workers
                                 WalletMode=$WalletMode
                                 PoolName = $Name
+                                Fee = $HR_Request.$_.Fees/100
                     
                 }
             
-                remove-variable HR_Request
+                
         }
 
 
