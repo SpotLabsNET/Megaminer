@@ -1,7 +1,7 @@
 {
-    "Path" : ".\\Bin\\NVIDIA-alexis-hsr\\ccminer-alexis.exe",
-    "ExtractionPath" : ".\\Bin\\NVIDIA-alexis-hsr\\",
-    "Uri" : "http://ccminer.org/preview/ccminer-hsr-alexis-x86-cuda8.7z",
+    "Path" : ".\\Bin\\NVIDIA-ccminerpolytimos\\ccminer.exe",
+    "ExtractionPath" : ".\\Bin\\NVIDIA-ccminerpolytimos\\",
+    "Uri" : "https://github.com/nemosminer/ccminerpolytimos/releases/download/Alexis78-1.0/ccminer-polytimos.7z",
     "Types" : ["NVIDIA"],
     "Arguments" : "-o #PROTOCOL#://#SERVER#:#PORT# -u #LOGIN# -p #PASSWORD# -R 10 -r 4 #ALGORITHMPARAMETERS#",
     "API" : "Ccminer",
@@ -10,11 +10,6 @@
     "Dualmining":false,
     "PrelaunchCommand":"",
     "Algorithms": [
-                    
-
-                    {"hsr":"-a hsr"}
-
-                    
+                    {"polytimos" : "-a poly"}
                   ]
-    
     }
