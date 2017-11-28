@@ -243,4 +243,51 @@ TO FORCE UPGRADE OF MINERS YOU MUST DELETE MINER FOLDER (CONTAINED ON BIN FOLDER
 *Fixed: WTM virtual pool not getting same result as WTM web due to default hashrates changes on WTM Web
 *Fixed: Skein profit calculation error
 
+------------------------------------------------
+4.5
+
+*Added DTSM equihash miner
+*Added AHASHPOOL Pool (No registration, Autoexchange)
+*Added UNIMINING Pool (No registration, No autoexchange, need wallet for each coin on config.txt)
+*Added to Suprnova: ELECTRONEUM (ETN),SMARTCASH (SMART),BITCOINZ (BTCZ),BITCOIN GOLD (BCG)
+
+*Fixed: Some pools-algo combination are ignored on multiple pool executions
+*Fixed: Blocks Factory skein port
+*Fixed: Hash Refinery "HR_request" error
+*Fixed: Other small bugs
+
+
+------------------------------------------------
+4.6
+
+*Now pools and miners fees affects profit calculation (see profits screen)
+*Shortened miner filenames, this will make some benchmarks run again
+*Upgraded ccminer Klaust to 8.14
+*Added ccminer Spmod #6 for lbry
+*Added ItalYiimp Pool
+
+*Fixed: suprnova wallet error msg at start
+
+
+------------------------------------------------
+4.7
+
+*Added CCMiner-Xevan for Xevan algo (NVIDIA)
+*Added CCMiner-Polytmos for Polytmos algo (NVIDIA) (thx MikeBuzz)
+*Added Nsgminer for Neoscrypt (AMD) 
+*Upgraded prospector to 0.0.13-ALPHA
+*Upgrade Excavator to v1.3.7a
+*Upgrade CCminer-Klaust to 8.15
+*Added to Suprnova.cc: STACKS (STACK), POLYTMOS (POLY)
+*Nvidia optimized miner for each algorithm
+*Live config.txt, now you can change config.txt values without restarting MM
+*Changed donation mechanism, now donation is always on MiningPoolHub
+
+
+
+*Fixed: sometimes benchmark for dualmining is saved with second algo zero value
+*Fixed: claymore Cryptonote not working due to wrong parameters
+*Fixed: incorrect live profit shown on Automatic24h mode
+*Fixed: ahashpool Automatic24h mode not working
+
 

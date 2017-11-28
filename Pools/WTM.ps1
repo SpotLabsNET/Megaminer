@@ -49,15 +49,17 @@ if ($Querymode -eq "info"){
 
 
     if (($Querymode -eq "wallet") -or ($Querymode -eq "APIKEY"))    {
-
+                                $PoolRealName=$null
                                 switch($info.AbbName) {
-                                                "WTM-SN" {$PoolRealName = 'SUPRNOVA'  }
+                                                "WTM-SNOVA" {$PoolRealName = 'SUPRNOVA'  }
                                                 "WTM-MPH" {$PoolRealName = 'MINING_POOL_HUB'  }
                                                 "WTM-YI" {$PoolRealName = 'YIIMP'  }
                                 }
                                 
-                                $Info.poolname = $PoolRealName     
-                                $result = Get-Pools -Querymode $info.WalletMode -PoolsFilterList $PoolRealName -Info $Info   | select-object Pool,currency,balance
+                                if ($PoolRealName -ne $null){
+                                        $Info.poolname = $PoolRealName     
+                                        $result = Get-Pools -Querymode $info.WalletMode -PoolsFilterList $PoolRealName -Info $Info   | select-object Pool,currency,balance
+                                        }
                              
                         
                                  }
@@ -80,16 +82,16 @@ if (($Querymode -eq "core" ) -or ($Querymode -eq "Menu")){
 
         $Pools=@()
 
-        #Manual Pools zone 
+        #Manual Pools zone (you cand add your pools here - wallet for that coins must exists on config.txt)
 
-                #$Pools +=[pscustomobject]@{"coin" = "ZCLASSIC";"algo"="Equihash"; "symbol"= "ZCL";"server"="us-east.equihash-hub.miningpoolhub.com"; "port"= "20575";"location"="US"}
-                #$Pools +=[pscustomobject]@{"coin" = "ORBITCOIN"; "algo"="NEOSCRYPT"; "symbol"= "ORB"; "server"="yiimp.ccminer.org";"port"="4233";"location"="US"}
+                 #$Pools +=[pscustomobject]@{"coin" = "PIRL";"algo"="Ethash"; "symbol"= "PIRL";"server"="pirl.minerpool.net"; "port"= "8004";"location"="US";"User"="XXX";"Pass" = "YYY";"fee"="0";"Abbname"="MinerP";"WalletMode"="NONE"}
+                        
 
         #Data from WTM
                 try {$WTMResponse = Invoke-WebRequest "https://whattomine.com/coins.json" -UseBasicParsing -timeoutsec 10 | ConvertFrom-Json | Select-Object -ExpandProperty coins} catch { WRITE-HOST 'WTM API NOT RESPONDING...ABORTING';EXIT}
 
                 $WTMResponse.psobject.properties.name | ForEach-Object { 
-                        $A=$WTMResponse.($_).Algorithm
+                        
                         $WTMResponse.($_).Algorithm = get-algo-unified-name ($WTMResponse.($_).Algorithm)
 
                          #not necessary delete bad names/algo, only necessary add correct name/algo
@@ -101,141 +103,79 @@ if (($Querymode -eq "core" ) -or ($Querymode -eq "Menu")){
 
                         }
 
-        #search if MPH has pool for WTM mcoins
+        #search on pools where to mine coins, switch sentence determines order to look, if one pool has one coin, no more pools for that coin are searched after.
 
-                $MPHPools=Get-Pools -Querymode "core" -PoolsFilterList 'MINING_POOL_HUB' -location $Info.Location
+                $PoolOrder=1
+                while ($PoolOrder -le 3)               
+                {
 
-                $MPHPools | ForEach-Object {
-
-                        $WTMcoin=$WTMResponse.($_.Info) 
-
-                        if (($WTMcoin.Algorithm -eq $_.Algorithm) -and (($Pools | where-object coin -eq $_.info |where-object Algo -eq $_.Algorithm) -eq $null)) {
-                                                $Pools +=[pscustomobject]@{
-                                                        "coin" = $_.Info
-                                                        "algo"=  $_.Algorithm
-                                                        "symbol"= $WTMResponse.($_.Info).tag
-                                                        "server"= $_.host
-                                                        "port"=  $_.port
-                                                        "location"= $_.location
-                                                        }
-                                }
-
-                        }
-      
-
-         #search if suprnova has pool for WTM mcoins
-
-               $SPRPools=Get-Pools -Querymode "core" -PoolsFilterList 'Suprnova' -location $Info.Location
-
-                $SPRPools | ForEach-Object {
-
-                        $WTMcoin=$WTMResponse.($_.Info)   
-                        if (($WTMcoin.Algorithm -eq $_.Algorithm) -and (($Pools | where-object coin -eq $_.info |where-object Algo -eq $_.Algorithm) -eq $null)) {
-                                                $Pools +=[pscustomobject]@{
-                                                        "coin" = $_.Info
-                                                        "algo"= $_.Algorithm
-                                                        "symbol"= $WTMResponse.($_.Info).tag
-                                                        "server"= $_.host
-                                                        "port"=  $_.port
-                                                        "location"= $_.location
-                                                        }
-                                }
-
-                        }
-
-         
-         #search if Yiimp has pool for WTM mcoins
-
-               $YiimpPools=Get-Pools -Querymode "core" -PoolsFilterList 'YIIMP' -location $Info.Location
-               
-                               $YiimpPools | ForEach-Object {
-               
-                                       $WTMcoin=$WTMResponse.($_.Info)   
-                                       if (($WTMcoin.Algorithm -eq $_.Algorithm) -and (($Pools | where-object coin -eq $_.info |where-object Algo -eq $_.Algorithm) -eq $null)) {
-                                         if ($_.Info -ne 'decred') { #decred on yiimp has "server full" errors
-                                                               $Pools +=[pscustomobject]@{
-                                                                       "coin" = $_.Info
-                                                                       "algo"= $_.Algorithm
-                                                                       "symbol"= $WTMResponse.($_.Info).tag
-                                                                       "server"= $_.host
-                                                                       "port"=  $_.port
-                                                                       "location"= $_.location
-                                                                       }
-                                                               }
-                                               }
-               
-                                       }
-           
-           
-        $Pools |ForEach-Object {
-                            #WTM json is for 3xAMD 480 hashrate must adjust, 
-                            # to check result with WTM set WTM on "Difficulty for revenue" to "current diff" and "and sort by "current profit" set your algo hashrate from profits screen, WTM "Rev. BTC" and MM BTC/Day must be the same
-                            $WTMFactor=$null
-                            switch ($_.Algo)
+                         switch ($PoolOrder)
                                         {
-                                                "Ethash"{$WTMFactor=79500000}
-                                                "Groestl"{$WTMFactor=54000000}
-                                                "Myriad-Groestl"{$WTMFactor=79380000}
-                                                "X11Gost"{$WTMFactor=20100000}
-                                                "Cryptonight"{$WTMFactor=2190}
-                                                "equihash"{$WTMFactor=870}
-                                                "lyra2v2"{$WTMFactor=14700000}
-                                                "Neoscrypt"{$WTMFactor=1950000}
-                                                "Lbry"{$WTMFactor=285000000}
-                                                "Blake2b"{$WTMFactor=2970000000} 
-                                                "Blake14r"{$WTMFactor=4200000000}
-                                                "Pascal"{$WTMFactor=2070000000}
-                                                "skunk"{$WTMFactor=54000000}
+                                                "1"{$PoolToSearch='MINING_POOL_HUB'}
+                                                "2"{$PoolToSearch='Suprnova'}
+                                                "3"{$PoolToSearch='YIIMP'}
+
                                         }
 
-                            if ($WTMFactor -ne $null) {
-                                                        $Estimate=[Double]($WTMResponse.($_.coin).btc_revenue/$WTMFactor)
-                                                        $Estimate24h=[Double]($WTMResponse.($_.coin).btc_revenue24/$WTMFactor)
-                                                        }
+                        $HPools=Get-Pools -Querymode "core" -PoolsFilterList $PoolToSearch -location $Info.Location
 
-                            if ($_.Server -like '*suprnova*'){
-                                        $VPUser="$Username.$WorkerName" 
-                                        $VPPassword="x"  
-                                        $VPprotocol="stratum+tcp"
-                                        $VpAbbname='SN'
-                                        $VpWalletMode='APIKEY'
-                                    }
+                        $HPools | ForEach-Object {
 
-                                    
-                            if ($_.Server -like '*yiimp*'){
-                                        $VPUser= $CoinsWallets.get_item($_.symbol)
-                                        $VPPassword="c=$Yiimp_currency,ID=$WorkerName,stats"
-                                        $VPprotocol="stratum+tcp"
-                                        $VpAbbname='YI'
-                                        $VpWalletMode='WALLET'
-                                    }
-                        
-                             if ($_.Server -like '*miningpoolhub*'){
-                                        $VPUser= "$UserName.$WorkerName"
-                                        $VPPassword="x"
-                                        $VPprotocol="stratum+tcp"
-                                        $VpAbbname='MPH'
-                                        $VpWalletMode='APIKEY'
-                                    }                                    
+                                $WTMcoin=$WTMResponse.($_.Info) 
+
+                                if (($WTMcoin.Algorithm -eq $_.Algorithm) -and (($Pools | where-object coin -eq $_.info |where-object Algo -eq $_.Algorithm) -eq $null)) {
+                                                        $Pools +=[pscustomobject]@{
+                                                                "coin" = $_.Info
+                                                                "algo"=  $_.Algorithm
+                                                                "symbol"= $WTMResponse.($_.Info).tag
+                                                                "server"= $_.host
+                                                                "port"=  $_.port
+                                                                "location"= $_.location
+                                                                "Fee" = $_.Fee
+                                                                "User"= $_.User
+                                                                "Password"= $_.Password
+                                                                "protocol"= $_.Protocol
+                                                                "Abbname"= $_.Abbname
+                                                                "WalletMode" = $_.WalletMode
+                                                                }
+                                        }
+
+                                }
+                        $PoolOrder++        
+                }        
+
+        #add estimation data to selected pools
+
+        $Pools |ForEach-Object {
+                            
+                $WTMFactor = get-WhattomineFactor ($_.Algo)
+                
+
+                if ($WTMFactor -ne $null) {
+                                        $Estimate=[Double]($WTMResponse.($_.coin).btc_revenue/$WTMFactor)
+                                        $Estimate24h=[Double]($WTMResponse.($_.coin).btc_revenue24/$WTMFactor)
+                                        }
+
 
                 $Result+=[PSCustomObject]@{
                                 Algorithm     = $_.Algo
                                 Info          = $_.Coin
                                 Price         = $Estimate
                                 Price24h      = $Estimate24h
-                                Protocol      = $VPprotocol
+                                Protocol      = $_.Protocol
                                 Host          = $_.Server
                                 Port          = $_.Port
-                                User          = $VpUser
-                                Pass          = $VpPassword
+                                User          = $_.User
+                                Pass          = $_.Password
                                 Location      = $_.Location
                                 SSL           = $false
                                 Symbol        = $_.symbol
-                                AbbName       = "WTM-"+$VpAbbname
+                                AbbName       = "WTM-"+$_.Abbname
                                 ActiveOnManualMode    = $ActiveOnManualMode
                                 ActiveOnAutomaticMode = $ActiveOnAutomaticMode
                                 PoolName = $Name
-                                WalletMode = $VpWalletMode
+                                WalletMode = $_.WalletMode
+                                Fee = $_.Fee
                                 }
 
                         }
@@ -244,8 +184,8 @@ if (($Querymode -eq "core" ) -or ($Querymode -eq "Menu")){
         remove-variable WTMResponse
         remove-variable Pools
         remove-variable WTMcoin
-        remove-variable MPHPools
-        remove-variable SPRPools                                      
+        remove-variable HPools
+      
 
         }
 
